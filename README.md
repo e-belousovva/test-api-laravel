@@ -10,4 +10,5 @@ How to install
 - **docker-compose up -d**
 - **docker-compose exec php-fpm bash**
 - **composer install**
+- **php artisan migrate**
 - **php artisan l5:generate**
