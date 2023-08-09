@@ -28,22 +28,22 @@ services:
         - internal
 
     pgsql:
-      image: postgres:13
-      container_name: pgsql
-      env_file:
-        - .env
-      environment:
-        PGPASSWORD: '${DB_PASSWORD:-secret}'
-        POSTGRES_DB: '${DB_DATABASE:-peremena_db}'
-        POSTGRES_USER: '${DB_USERNAME:-peremena_user}'
-        POSTGRES_PASSWORD: '${DB_PASSWORD:-peremena_user_password}'
-      volumes:
-        - ./sourcefiles/pgsql:/tmp
-        - 'pg-data:/var/lib/postgresql/data'
-      ports:
-        - 5432:5432
-      networks:
-        - internal
+        image: postgres:13
+        container_name: ${PROJECT_NAME}-pgsql
+        env_file:
+            - .env
+        environment:
+            PGPASSWORD: '${DB_PASSWORD}'
+            POSTGRES_DB: '${DB_DATABASE}'
+            POSTGRES_USER: '${DB_USERNAME}'
+            POSTGRES_PASSWORD: '${DB_PASSWORD}'
+        volumes:
+            - ./sourcefiles/pgsql:/tmp
+            - 'pg-data:/var/lib/postgresql/data'
+        ports:
+            - '${DB_PORT}:5432'
+        networks:
+            - internal
 
 volumes:
   pg-data:

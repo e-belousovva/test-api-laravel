@@ -1,20 +1,18 @@
-FROM php:8.0-rc-cli
+FROM devilbox/php-fpm-8.1:latest
+WORKDIR "/application"
 
-COPY opcache.ini /usr/local/etc/php/conf.d/
+RUN apt-get update
 
-RUN apt-get update && apt-get upgrade -y \
-    && apt-get install apt-utils -y \
-#
-#    устанавливаем необходимые пакеты
-    && apt-get install git zip vim libzip-dev libgmp-dev libffi-dev libssl-dev -y \
-#
-#    Включаем необходимые расширения
-    && docker-php-ext-install -j$(nproc) sockets zip gmp pcntl bcmath ffi \
-#
-#    Расшерения через pecl ставятся так, то в php 8 pecl сейчас отсутствует, так что строки закоментированы
-#    && PHP_OPENSSL=yes pecl install ev \
-#    && docker-php-ext-enable ev \
-#
-#    Чистим временные файлы
-    && docker-php-source delete \
-    && apt-get autoremove --purge -y && apt-get autoclean -y && apt-get clean -y
+# Install composer
+RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
+
+#Install zip+icu dev libs + pgsql dev support
+RUN apt-get install libzip-dev zip libicu-dev libpq-dev -y
+
+#Install PHP extensions zip and intl (intl requires to be configured)
+RUN docker-php-ext-install zip && docker-php-ext-configure intl && docker-php-ext-install intl
+
+# Add MySQL and Postgres/pgsql support
+RUN docker-php-ext-configure pgsql -with-pgsql=/usr/local/pgsql && docker-php-ext-install pdo_pgsql pgsql
+
+#Required for htaccess rewrite rules
