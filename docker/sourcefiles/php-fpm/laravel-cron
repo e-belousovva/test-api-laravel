@@ -1,0 +1,4 @@
+# my_laravel_docker_crontab
+# m h  dom mon dow   command
+# use the bin/bash as the default environment
+* * * * * cd /application && php artisan schedule:run >> /dev/null 2>&1
