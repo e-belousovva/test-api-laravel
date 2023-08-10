@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Api\Auth\GoogleController;
 use App\Http\Controllers\Api\Auth\LoginController;
 use App\Http\Controllers\Api\Auth\LogoutController;
 use App\Http\Controllers\Api\Auth\MeController;
@@ -18,7 +19,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:api')->group(function () {
+Route::middleware('auth:sanctum')->group(function () {
     Route::apiResource('users', UserController::class);
 });
 
@@ -30,4 +31,7 @@ Route::group([
     Route::post('logout', LogoutController::class);
     Route::post('refresh', RefreshController::class);
     Route::get('me', MeController::class);
+
+    Route::get('auth/google', [GoogleController::class, 'signInWithGoogle']);
+    Route::get('callback/google', [GoogleController::class, 'callbackToGoogle']);
 });
