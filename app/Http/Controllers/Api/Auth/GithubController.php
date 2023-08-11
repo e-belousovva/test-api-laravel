@@ -43,13 +43,13 @@ class GithubController extends Controller
                     curl_close($ch);
                     $info = json_decode($info, true);
 
-                    $finduser = User::where('ghauth_id', $info['id'])->first();
+                    $findUser = User::where('ghauth_id', $info['id'])->first();
 
-                    if ($finduser) {
+                    if ($findUser) {
 
-                        Auth::login($finduser);
+                        Auth::login($findUser);
 
-                        return new JsonResponse(auth()->tokenById($finduser->id));
+                        return new JsonResponse(auth()->tokenById($findUser->id));
 
                     } else {
                         $newUser = User::create([
