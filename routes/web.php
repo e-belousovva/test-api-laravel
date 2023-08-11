@@ -1,5 +1,8 @@
 <?php
 
+use App\Http\Controllers\Api\Auth\GithubController;
+use App\Http\Controllers\Api\Auth\GoogleController;
+use App\Http\Controllers\Api\Auth\YandexController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -26,3 +29,13 @@ Route::middleware([
         return view('dashboard');
     })->name('dashboard');
 });
+
+
+Route::get('auth/google', [GoogleController::class, 'signInWithGoogle']);
+Route::get('callback/google', [GoogleController::class, 'callbackToGoogle']);
+
+Route::get('auth/yandex', [YandexController::class, 'signInWithYandex']);
+Route::get('callback/yandex', [YandexController::class, 'callbackToYandex']);
+
+Route::get('auth/github', [GithubController::class, 'signInWithGithub']);
+Route::get('callback/github', [GithubController::class, 'callbackToGithub']);

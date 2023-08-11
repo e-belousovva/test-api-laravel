@@ -32,9 +32,20 @@ return [
     ],
 
     'google' => [
-        'client_id' => '651029058639-5r4i7jbp1grer57dr5c38aa4egib8qdd.apps.googleusercontent.com',
-        'client_secret' => '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',
-        'redirect' => 'http://127.0.0.1:85/callback/google',
+        'client_id' => env('GOOGLE_CLIENT_ID'),
+        'client_secret' => env('GOOGLE_CLIENT_SECRET'),
+        'redirect' => env('GOOGLE_REDIRECT_URI')
     ],
 
+    'yandex' => [
+        'client_id' => env('YANDEX_CLIENT_ID'),
+        'client_secret' => env('YANDEX_CLIENT_SECRET'),
+        'redirect' => env('YANDEX_REDIRECT_URI')
+    ],
+
+    'github' => [
+        'client_id' => env('GITHUB_CLIENT_ID'),
+        'client_secret' => env('GITHUB_CLIENT_SECRET'),
+        'redirect' => env('GITHUB_REDIRECT_URI')
+    ],
 ];
