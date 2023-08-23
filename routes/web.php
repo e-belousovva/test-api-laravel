@@ -34,8 +34,6 @@ Route::middleware([
 Route::get('auth/google', [GoogleController::class, 'signInWithGoogle']);
 Route::get('callback/google', [GoogleController::class, 'callbackToGoogle']);
 
-Route::get('auth/yandex', [YandexController::class, 'signInWithYandex']);
 Route::get('callback/yandex', [YandexController::class, 'callbackToYandex']);
 
-Route::get('auth/github', [GithubController::class, 'signInWithGithub']);
 Route::get('callback/github', [GithubController::class, 'callbackToGithub']);
