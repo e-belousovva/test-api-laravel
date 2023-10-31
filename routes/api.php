@@ -4,6 +4,7 @@ use App\Http\Controllers\Api\Auth\LoginController;
 use App\Http\Controllers\Api\Auth\LogoutController;
 use App\Http\Controllers\Api\Auth\MeController;
 use App\Http\Controllers\Api\Auth\RefreshController;
+use App\Http\Controllers\Api\Excel\ExcelController;
 use App\Http\Controllers\Api\User\UserController;
 use Illuminate\Support\Facades\Route;
 
@@ -31,3 +32,5 @@ Route::group([
     Route::post('refresh', RefreshController::class);
     Route::get('me', MeController::class);
 });
+
+Route::post('/export', [ExcelController::class, 'export'])->name('export');
